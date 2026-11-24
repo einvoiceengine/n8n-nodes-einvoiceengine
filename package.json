@@ -1,0 +1,63 @@
+{
+  "name": "n8n-nodes-einvoiceengine",
+  "version": "0.1.0",
+  "description": "n8n node for the E-Invoicing API: validate, parse, convert and repair XRechnung, EN 16931, Peppol, ZUGFeRD / Factur-X, Facturae and KSeF invoices",
+  "keywords": [
+    "n8n-community-node-package",
+    "e-invoicing",
+    "xrechnung",
+    "zugferd",
+    "factur-x",
+    "peppol",
+    "en16931"
+  ],
+  "license": "MIT",
+  "homepage": "https://einvoiceengine.com/docs",
+  "author": {
+    "name": "E-Invoicing API (einvoiceengine.com)",
+    "url": "https://einvoiceengine.com",
+    "email": "support@einvoiceengine.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/einvoiceengine/n8n-nodes-einvoiceengine.git"
+  },
+  "engines": {
+    "node": ">=20.15"
+  },
+  "main": "index.js",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json && node scripts/copy-icons.mjs",
+    "dev": "tsc -p tsconfig.json --watch",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "lint": "n8n-node lint",
+    "prepublishOnly": "npm run build"
+  },
+  "n8n": {
+    "n8nNodesApiVersion": 1,
+    "strict": true,
+    "credentials": [
+      "dist/credentials/EInvoicingApi.credentials.js"
+    ],
+    "nodes": [
+      "dist/nodes/EInvoicing/EInvoicing.node.js"
+    ]
+  },
+  "devDependencies": {
+    "@n8n/node-cli": "^0.57.5",
+    "@types/node": "^22.0.0",
+    "eslint": "^9.29.0",
+    "n8n-workflow": "*",
+    "typescript": "~5.9.3"
+  },
+  "peerDependencies": {
+    "n8n-workflow": "*"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  }
+}
