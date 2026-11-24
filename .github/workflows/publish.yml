@@ -1,6 +1,6 @@
-# Publishes to npm with a provenance statement (required for n8n verified community nodes).
-# Runs when a GitHub release is published. Needs the repository secret NPM_TOKEN
-# (npm automation/granular token with publish rights), or npm trusted publishing configured for this repo.
+# Publishes to npm with a provenance statement when a GitHub release is published.
+# Uses npm trusted publishing (OIDC): the package settings on npmjs.com list this repo
+# and workflow publish.yml as a trusted publisher, so no npm token is stored here.
 name: Publish to npm
 on:
   release:
@@ -17,8 +17,7 @@ jobs:
         with:
           node-version: 22
           registry-url: https://registry.npmjs.org
+      - run: npm install -g npm@latest
       - run: npm install --no-audit --no-fund --ignore-scripts
       - run: npm run build
       - run: npm publish --provenance --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
